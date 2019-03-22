@@ -64,7 +64,7 @@ class Login extends Component {
     return (
       <div className="content">
       <ThreeScene />
-        <nav class="navbar navbar-dark bg-dark">
+        {/* <nav class="navbar navbar-dark bg-dark">
               <a class="navbar-brand" href="#">TFS Monitoring</a>
           </nav>
           <div class="row d-flex justify-content-center">
@@ -83,7 +83,7 @@ class Login extends Component {
                       </div>
                   </form>
               </div>
-          </div>
+          </div> */}
       </div>
     );
   }
