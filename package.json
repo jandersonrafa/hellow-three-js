@@ -31,7 +31,8 @@
     "three-orbitcontrols": "^2.102.1",
     "three-trackballcontrols": "0.0.7",
     "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
@@ -53,7 +54,6 @@
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack-dev-middleware": "^3.6.0",
-    "webpack-hot-middleware": "^2.24.3",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-hot-middleware": "^2.24.3"
   }
 }
