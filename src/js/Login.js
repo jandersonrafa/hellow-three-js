@@ -65,7 +65,7 @@ class Login extends Component {
       <div className="content">
       <ThreeScene />
         {/* <nav class="navbar navbar-dark bg-dark">
-              <a class="navbar-brand" href="#">TFS Monitoring</a>
+              <a class="navbar-brand" href="#">THREE JS</a>
           </nav>
           <div class="row d-flex justify-content-center">
               <div class="login-form col-3">

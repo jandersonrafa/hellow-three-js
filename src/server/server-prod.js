@@ -46,5 +46,5 @@ app.get(BASE_URL + '/login', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`TFS-Monitoring listening on ${PORT}. Press Ctrl+C to quit.`)
+    console.log(`THREE listening on ${PORT}. Press Ctrl+C to quit.`)
 })

@@ -1,5 +1,5 @@
 {
-  "name": "tfs-monitoring",
+  "name": "hellow-three-js",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jandersonrafa/tfs-monitoring.git"
+    "url": "git+https://github.com/jandersonrafa/hellow-three-js.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jandersonrafa/tfs-monitoring/issues"
+    "url": "https://github.com/jandersonrafa/hellow-three-js/issues"
   },
-  "homepage": "https://github.com/jandersonrafa/tfs-monitoring#readme",
+  "homepage": "https://github.com/jandersonrafa/hellow-three-js#readme",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "express": "^4.16.4",
