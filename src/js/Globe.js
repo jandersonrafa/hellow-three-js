@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
-import TrackballControls from 'three-trackballcontrols'
-class ThreeScene extends Component {
+import OrbitControls from 'three-orbitcontrols'
+
+class Globe extends Component {
   constructor(props) {
     super(props);
     this.camera = undefined
     this.mouse = { x: 0, y: 0 };
-    // this.projector = { x: 0, y: 0 };
+     this.projector = { x: 0, y: 0 };
     this.targetList = []
     this.controls = undefined
     this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this)
+    this.animate = this.animate.bind(this)
   }
 
   componentDidMount() {
@@ -20,13 +22,14 @@ class ThreeScene extends Component {
     //ADD CAMERA
     var VIEW_ANGLE = 45, ASPECT = width / height, NEAR = 0.1, FAR = 20000;
     this.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
-    this.camera.position.z = 4
+    this.scene.add(this.camera);
+	this.camera.position.set(0,150,400);
+	this.camera.lookAt(this.scene.position);
     //ADD RENDERER
-    this.renderer = new THREE.WebGLRenderer({ antialias: true })
-    this.renderer.setClearColor('#000000')
-    this.renderer.setSize(width, height)
+    this.renderer = new THREE.WebGLRenderer( {antialias:true} )
+    this.renderer.setSize(width, height);
     this.mount.appendChild(this.renderer.domElement)
-    this.controls = new TrackballControls(this.camera, this.renderer.domElement);
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     //ADD CUBE
     const geometry = new THREE.BoxGeometry(2, 1, 5)
     const material = new THREE.MeshBasicMaterial({ vertexColors: THREE.FaceColors })
@@ -34,26 +37,30 @@ class ThreeScene extends Component {
     for (var i = 0; i < geometry.faces.length; i++) {
       geometry.faces[i].color = red;
     }
-    //this.cube.geometry.faces[0].color = green
     this.cube = new THREE.Mesh(geometry, material)
-    this.scene.add(this.cube)
-    this.targetList.push(this.cube);
+    //this.cube.geometry.faces[0].color = green
 
-    this.animate = this.animate.bind(this)
-    this.cube2 = new THREE.Mesh(geometry, material)
-    this.cube2.position.set(0, 5, 0);
-    this.scene.add(this.cube2)
+    var faceColorMaterial = new THREE.MeshBasicMaterial( 
+        { color: 0xffffff, vertexColors: THREE.FaceColors } );
+    var sphereGeometry = new THREE.SphereGeometry( 80, 32, 16 );
+	for ( var i = 0; i < sphereGeometry.faces.length; i++ ) 
+	{
+		let face = sphereGeometry.faces[ i ];	
+		face.color.setRGB( 0, 0, 0.8 * Math.random() + 0.2 );		
+	}
+    var sphere = new THREE.Mesh( sphereGeometry, faceColorMaterial );
+	sphere.position.set(0, 50, 0);
+	this.scene.add(sphere);
+	
+	this.targetList.push(sphere);
+   // this.scene.add(this.cube)
+    // this.animate = this.animate.bind(this)
+    // this.targetList.push(this.cube);
 
-    this.cube3 = new THREE.Mesh(geometry, material)
-    this.cube3.position.set(5, 0, 0);
-    this.scene.add(this.cube3)
-
-
-    this.targetList.push(this.cube2);
-
-    this.start()
+    
     this.renderer.domElement.addEventListener('mousedown', this.onDocumentMouseDown, false);
-    //this.projector = new THREE.Projector();
+    this.start()
+    
 
   }
 
@@ -82,11 +89,13 @@ class ThreeScene extends Component {
     // if there is one (or more) intersections
     if (intersects.length > 0) {
       console.log("Hit @ " + toString(intersects[0].point));
+      intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 ); 
+		intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
       // change the color of the closest face.
-      const blue = new THREE.Color(0, 0, 1)
-      intersects[0].object.geometry.faces[intersects[0].faceIndex].color = blue
-      // forca update de cor
-      intersects[0].object.geometry.elementsNeedUpdate = true;
+    //   const blue = new THREE.Color(0, 0, 1)
+    //   intersects[0].object.geometry.faces[intersects[0].faceIndex].color = blue
+    //   // forca update de cor
+    //   intersects[0].object.geometry.elementsNeedUpdate = true;
       //intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 ); 
       // intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
       // intersects[ 0 ].object.geometry.groupsNeedUpdate= true;
@@ -111,8 +120,8 @@ class ThreeScene extends Component {
     cancelAnimationFrame(this.frameId)
   }
   animate() {
-    this.cube.rotation.x += 0.01
-    this.cube.rotation.y += 0.01
+    // this.cube.rotation.x += 0.01
+    // this.cube.rotation.y += 0.01
     this.renderScene()
     this.frameId = window.requestAnimationFrame(this.animate)
   }
@@ -124,10 +133,10 @@ class ThreeScene extends Component {
   render() {
     return (
       <div
-      style={{ width: '100%', height: '100%', position: 'absolute', left:'0px;', top:'0px' }}
+        style={{ width: '100%', height: '100%', position: 'absolute', left:'0px;', top:'0px' }}
         ref={(mount) => { this.mount = mount }}
       />
     )
   }
 }
-export default ThreeScene
+export default Globe
